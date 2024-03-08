@@ -1,4 +1,4 @@
-﻿namespace Celebpretty.Infrastructure.Mongo.Models;
+﻿namespace Celebpretty.Api.Models.V1;
 
 public class Celebrity
 {
@@ -8,7 +8,4 @@ public class Celebrity
     public string Role { get; set; }
     public DateTime BirthDate { get; set; }
     public string Image { get; set; }
-    public DateTime Created { get; set; }
-    public DateTime Updated { get; set; }
-    public bool Deleted { get; set; }
 }

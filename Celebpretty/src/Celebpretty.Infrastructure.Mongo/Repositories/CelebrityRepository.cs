@@ -21,11 +21,13 @@ public class CelebrityRepository : ICelebrityRepository, IDataInitializer
     public async Task Init(CancellationToken cancellationToken)
     {
         await _celebrityCollection.Indexes.CreateOneAsync(new CreateIndexModel<Celebrity>(Builders<Celebrity>.IndexKeys.Descending(x => x.Id)));
+        await _celebrityCollection.Indexes.CreateOneAsync(new CreateIndexModel<Celebrity>(Builders<Celebrity>.IndexKeys.Ascending(x => x.Deleted)));
     }
 
     public async Task<Core.Domain.Celebrity> CreateCelebrity(Core.Domain.Celebrity celebrity, CancellationToken cancellationToken)
     {
         var dbCelebrity = _mapper.Map<Celebrity>(celebrity);
+        dbCelebrity.Deleted = false;
         await _celebrityCollection.InsertOneAsync(dbCelebrity, cancellationToken: cancellationToken);
 
         return _mapper.Map<Core.Domain.Celebrity>(dbCelebrity);
@@ -57,7 +59,10 @@ public class CelebrityRepository : ICelebrityRepository, IDataInitializer
 
     public async Task<Core.Domain.Celebrity> GetCelebrity(int id, CancellationToken cancellationToken)
     {
-        var result = await _celebrityCollection.Find(filter: Builders<Celebrity>.Filter.Eq(x => x.Id, id))
+        var result = await _celebrityCollection.Find(filter: 
+            Builders<Celebrity>.Filter.And(
+                Builders<Celebrity>.Filter.Eq(x => x.Id, id),
+                Builders<Celebrity>.Filter.Ne(x => x.Deleted, true)))
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
         return result is null ? null : _mapper.Map<Core.Domain.Celebrity>(result);

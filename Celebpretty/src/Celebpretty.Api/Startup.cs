@@ -3,7 +3,8 @@ using Asp.Versioning.ApiExplorer;
 using Celebpreety.Infrastructure.IdGenerator;
 using Celebpretty.Api.Extensions;
 using Celebpretty.Api.Filters;
-using Celebpretty.Api.Models;
+using Celebpretty.Application.Main.Extensions;
+using Celebpretty.Infrastructure.Mongo.Configuration;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Internal;
@@ -13,11 +14,14 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Prometheus;
 using Serilog;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
@@ -88,7 +92,9 @@ public class Startup
         );
         services.AddValidatorsFromAssemblyContaining<Startup>();
         services.AddFluentValidationRulesToSwagger();
-        services.AddAutoMapper(configurationExpression => configurationExpression.AddProfile(new MappingProfile()));
+        services.AddAutoMapper(configurationExpression => configurationExpression.AddProfile(new Models.MappingProfile()));
+        services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>(sp =>
+            new ConfigureSwaggerOptions(sp.GetRequiredService<IApiVersionDescriptionProvider>()));
         services.AddSwaggerGen();
         services.AddOpenTelemetry()
             .WithTracing(builder =>
@@ -108,7 +114,9 @@ public class Startup
             .ForwardToPrometheus();
         services.AddResponseCompression();
         services.AddAsyncInitializer<DataAsyncInitializer>();
+        services.AddMongoPersistence(AppSettings.Mongo);
         services.AddIdGenerator();
+        services.AddApplicationMain();
     }
 
     public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider provider)

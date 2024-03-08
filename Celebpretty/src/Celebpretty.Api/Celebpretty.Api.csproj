@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +28,9 @@
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Formatting.Compact" Version="2.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
@@ -35,7 +38,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Celebpreety.Infrastructure.IdGenerator\Celebpreety.Infrastructure.IdGenerator.csproj" />
-    <ProjectReference Include="..\Celebpretty.Infrastructure.Common\Celebpretty.Infrastructure.Common.csproj" />
+    <ProjectReference Include="..\Celebpretty.Application.Main\Celebpretty.Application.Main.csproj" />
+    <ProjectReference Include="..\Celebpretty.Core\Celebpretty.Core.csproj" />
     <ProjectReference Include="..\Celebpretty.Infrastructure.Mongo\Celebpretty.Infrastructure.Mongo.csproj" />
   </ItemGroup>
 

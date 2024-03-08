@@ -1,0 +1,23 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+
+WORKDIR /app
+
+COPY src/Celebpretty.Api/*.csproj ./src/Celebpretty.Api/
+COPY src/Celebpretty.Core/*.csproj ./src/Celebpretty.Core/
+COPY src/Celebpreety.Infrastructure.IdGenerator/*.csproj ./src/Celebpreety.Infrastructure.IdGenerator/
+COPY src/Celebpretty.Infrastructure.Common/*.csproj ./src/Celebpretty.Infrastructure.Common/
+COPY src/Celebpretty.Infrastructure.Mongo/*.csproj ./src/Celebpretty.Infrastructure.Mongo/
+COPY src/Celebpretty.Application.Main/*.csproj ./src/Celebpretty.Application.Main/
+COPY src/Celebpretty.Application.Persistence/*.csproj ./src/Celebpretty.Application.Persistence/
+
+RUN dotnet restore ./src/Celebpretty.Api/Celebpretty.Api.csproj
+COPY src/. ./src
+
+WORKDIR /app/src/Celebpretty.Api
+RUN dotnet publish -c Release -o out
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+
+WORKDIR /app
+COPY --from=build /app/src/Celebpretty.Api/out ./
+ENTRYPOINT ["dotnet", "Celebpretty.Api.dll"]

@@ -10,7 +10,7 @@ namespace Celebpretty.Infrastructure.Mongo.Configuration;
 
 public static class ServiceCollectionExtension
 {
-    public static IServiceCollection AddMongo(this IServiceCollection services, MongoSettings settings)
+    public static IServiceCollection AddMongoPersistence(this IServiceCollection services, MongoSettings settings)
     {
         services.TryAddSingleton<IMongoClient>(new MongoClient(settings.ConnectionString));
         
@@ -35,7 +35,7 @@ public static class ServiceCollectionExtension
         services.AddSingleton<ICelebrityRepository, CelebrityRepository>();
         services.AddSingleton<IDataInitializer, CelebrityRepository>();
 
-        services.AddAutoMapper(expression => expression.AddProfile<MappingProfile>());
+        services.AddAutoMapper(c => c.AddProfile<MappingProfile>());
 
         return services;
     }
