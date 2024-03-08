@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CF2917B4-A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Celebpretty.Core", "src\Celebpretty.Core\Celebpretty.Core.csproj", "{C5EEE8ED-0F19-4D9B-8A00-4CDC305728C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Celebpreety.Infrastructure.IdGenerator", "src\Celebpreety.Infrastructure.IdGenerator\Celebpreety.Infrastructure.IdGenerator.csproj", "{7DCAB6F7-D89F-430E-BAF2-0318BEBE1F47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{C5EEE8ED-0F19-4D9B-8A00-4CDC305728C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5EEE8ED-0F19-4D9B-8A00-4CDC305728C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5EEE8ED-0F19-4D9B-8A00-4CDC305728C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DCAB6F7-D89F-430E-BAF2-0318BEBE1F47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DCAB6F7-D89F-430E-BAF2-0318BEBE1F47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DCAB6F7-D89F-430E-BAF2-0318BEBE1F47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DCAB6F7-D89F-430E-BAF2-0318BEBE1F47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{A71701D7-FFA8-4228-85AB-823458F86CD2} = {5044168D-ED76-4B13-8917-C68F7695E94A}
 		{0B8EFEF1-72A4-4FFA-AEB2-D66EF874198A} = {5044168D-ED76-4B13-8917-C68F7695E94A}
 		{C5EEE8ED-0F19-4D9B-8A00-4CDC305728C6} = {CF2917B4-AD3B-4426-84C2-5B9F9F896541}
+		{7DCAB6F7-D89F-430E-BAF2-0318BEBE1F47} = {6BBD46D8-D1DC-4CA8-8B22-781BA067DA86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D965EA5D-2D43-4AC7-AE76-2E4219CB755F}

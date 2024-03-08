@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Celebpreety.Infrastructure.IdGenerator\Celebpreety.Infrastructure.IdGenerator.csproj" />
     <ProjectReference Include="..\Celebpretty.Infrastructure.Common\Celebpretty.Infrastructure.Common.csproj" />
     <ProjectReference Include="..\Celebpretty.Infrastructure.Mongo\Celebpretty.Infrastructure.Mongo.csproj" />
   </ItemGroup>

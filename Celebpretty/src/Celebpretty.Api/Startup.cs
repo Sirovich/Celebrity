@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Celebpreety.Infrastructure.IdGenerator;
 using Celebpretty.Api.Extensions;
 using Celebpretty.Api.Filters;
 using Celebpretty.Api.Models;
@@ -107,6 +108,7 @@ public class Startup
             .ForwardToPrometheus();
         services.AddResponseCompression();
         services.AddAsyncInitializer<DataAsyncInitializer>();
+        services.AddIdGenerator();
     }
 
     public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider provider)

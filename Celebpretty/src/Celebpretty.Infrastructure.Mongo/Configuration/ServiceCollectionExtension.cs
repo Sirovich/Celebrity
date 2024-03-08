@@ -1,4 +1,7 @@
-﻿using Celebpretty.Infrastructure.Mongo.Models;
+﻿using Celebpretty.Application.Persistence;
+using Celebpretty.Infrastructure.Common;
+using Celebpretty.Infrastructure.Mongo.Models;
+using Celebpretty.Infrastructure.Mongo.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using MongoDB.Driver;
@@ -10,13 +13,27 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddMongo(this IServiceCollection services, MongoSettings settings)
     {
         services.TryAddSingleton<IMongoClient>(new MongoClient(settings.ConnectionString));
+        
         services.TryAddSingleton(_ =>
             _.GetService<IMongoClient>()
                 ?.WithReadPreference(ReadPreference.Primary)
                 .WithReadConcern(ReadConcern.Majority)
                 .WithWriteConcern(WriteConcern.WMajority)
                 .GetDatabase(settings.Database)
-                .GetCollection<Celebrity>(settings.CelebCollectionName));
+                .GetCollection<Celebrity>(settings.CelebrityCollectionName));
+
+        services.TryAddSingleton(_ =>
+           _.GetService<IMongoClient>()
+               ?.WithReadPreference(ReadPreference.Primary)
+               .WithReadConcern(ReadConcern.Majority)
+               .WithWriteConcern(WriteConcern.WMajority)
+               .GetDatabase(settings.Database)
+               .GetCollection<SequenceDoc>(settings.SequencesCollectionName));
+
+        services.AddSingleton<ISequencesRepository, SequencesRepository>();
+
+        services.AddSingleton<ICelebrityRepository, CelebrityRepository>();
+        services.AddSingleton<IDataInitializer, CelebrityRepository>();
 
         return services;
     }

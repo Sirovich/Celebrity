@@ -2,12 +2,12 @@
 
 public class Celebrity
 {
-    public int Id { get; init; }
-    public string Name { get; init; }
-    public string Gender { get; init; }
-    public string Role { get; init; }
-    public DateTime BirthDate { get; init; }
-    public string Image { get; init; }
-    public DateTime Created { get; init; }
-    public DateTime Updated { get; init; }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Gender { get; set; }
+    public string Role { get; set; }
+    public DateTime BirthDate { get; set; }
+    public string Image { get; set; }
+    public DateTime Created { get; set; }
+    public DateTime Updated { get; set; }
 }
