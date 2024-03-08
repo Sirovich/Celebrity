@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.24.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\Celebpretty.Application.Persistence\Celebpretty.Application.Persistence.csproj" />
+    <ProjectReference Include="..\Celebpretty.Core\Celebpretty.Core.csproj" />
+    <ProjectReference Include="..\Celebpretty.Infrastructure.Common\Celebpretty.Infrastructure.Common.csproj" />
   </ItemGroup>
 
 </Project>

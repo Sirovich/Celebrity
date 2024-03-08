@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Celebpretty.Core\Celebpretty.Core.csproj" />
+  </ItemGroup>
+
 </Project>

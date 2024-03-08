@@ -16,7 +16,7 @@ public static class ServiceCollectionExtension
                 .WithReadConcern(ReadConcern.Majority)
                 .WithWriteConcern(WriteConcern.WMajority)
                 .GetDatabase(settings.Database)
-                .GetCollection<Celeb>(settings.CelebCollectionName));
+                .GetCollection<Celebrity>(settings.CelebCollectionName));
 
         return services;
     }
