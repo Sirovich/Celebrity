@@ -16,11 +16,11 @@ public class Celebrity
 
 public class CreateCelebrityRes : BaseResult
 {
-    Celebrity Celebrity { get; init; }
+    public Celebrity Celebrity { get; init; }
 }
 
 public class UpdateCelebrityRes : BaseResult
 {
-    Celebrity Celebrity { get; init; }
+    public Celebrity Celebrity { get; init; }
 }
 

@@ -35,6 +35,8 @@ public static class ServiceCollectionExtension
         services.AddSingleton<ICelebrityRepository, CelebrityRepository>();
         services.AddSingleton<IDataInitializer, CelebrityRepository>();
 
+        services.AddAutoMapper(expression => expression.AddProfile<MappingProfile>());
+
         return services;
     }
 }

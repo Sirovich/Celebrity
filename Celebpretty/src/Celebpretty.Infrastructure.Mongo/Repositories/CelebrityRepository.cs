@@ -46,22 +46,6 @@ public class CelebrityRepository : ICelebrityRepository, IDataInitializer
         return _mapper.Map<Core.Domain.Celebrity>(updatedCelebrity);
     }
 
-    public async Task DeleteCelebrity(int id, CancellationToken cancellationToken)
-    {
-        await _celebrityCollection.UpdateOneAsync(
-            filter: Builders<Celebrity>.Filter.Eq(x => x.Id, id),
-            update: Builders<Celebrity>.Update.Set(x => x.Deleted, true),
-            cancellationToken: cancellationToken);
-    }
-
-    public async Task ResetCelebrity(int id, CancellationToken cancellationToken)
-    {
-        await _celebrityCollection.UpdateOneAsync(
-           filter: Builders<Celebrity>.Filter.Eq(x => x.Id, id),
-           update: Builders<Celebrity>.Update.Set(x => x.Deleted, false),
-           cancellationToken: cancellationToken);
-    }
-
     public async Task<IEnumerable<Core.Domain.Celebrity>> GetCelebrities(CancellationToken cancellationToken)
     {
         var celebrities = await _celebrityCollection.FindAsync(
@@ -69,5 +53,13 @@ public class CelebrityRepository : ICelebrityRepository, IDataInitializer
             cancellationToken: cancellationToken);
 
         return _mapper.Map<IEnumerable<Core.Domain.Celebrity>>(celebrities);
+    }
+
+    public async Task<Core.Domain.Celebrity> GetCelebrity(int id, CancellationToken cancellationToken)
+    {
+        var result = await _celebrityCollection.Find(filter: Builders<Celebrity>.Filter.Eq(x => x.Id, id))
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+        return result is null ? null : _mapper.Map<Core.Domain.Celebrity>(result);
     }
 }
