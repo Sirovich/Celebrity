@@ -1,8 +1,13 @@
-﻿namespace Celebpretty.Infrastructure.Mongo.Models;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace Celebpretty.Infrastructure.Mongo.Models;
 
 public class Celebrity
 {
-    public int Id { get; set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; }
     public string Name { get; set; }
     public string Gender { get; set; }
     public string Role { get; set; }
@@ -10,5 +15,4 @@ public class Celebrity
     public string Image { get; set; }
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }
-    public bool Deleted { get; set; }
 }

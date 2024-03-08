@@ -4,7 +4,7 @@ namespace Celebpretty.Application.Main.Models;
 
 public class Celebrity
 {
-    public int? Id { get; set; }
+    public string Id { get; set; }
     public string Name { get; set; }
     public string Gender { get; set; }
     public string Role { get; set; }

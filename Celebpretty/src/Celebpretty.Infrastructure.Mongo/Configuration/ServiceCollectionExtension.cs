@@ -22,16 +22,6 @@ public static class ServiceCollectionExtension
                 .GetDatabase(settings.Database)
                 .GetCollection<Celebrity>(settings.CelebrityCollectionName));
 
-        services.TryAddSingleton(_ =>
-           _.GetService<IMongoClient>()
-               ?.WithReadPreference(ReadPreference.Primary)
-               .WithReadConcern(ReadConcern.Majority)
-               .WithWriteConcern(WriteConcern.WMajority)
-               .GetDatabase(settings.Database)
-               .GetCollection<SequenceDoc>(settings.SequencesCollectionName));
-
-        services.AddSingleton<ISequencesRepository, SequencesRepository>();
-
         services.AddSingleton<ICelebrityRepository, CelebrityRepository>();
         services.AddSingleton<IDataInitializer, CelebrityRepository>();
 

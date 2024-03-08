@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,10 +37,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Celebpreety.Infrastructure.IdGenerator\Celebpreety.Infrastructure.IdGenerator.csproj" />
     <ProjectReference Include="..\Celebpretty.Application.Main\Celebpretty.Application.Main.csproj" />
     <ProjectReference Include="..\Celebpretty.Core\Celebpretty.Core.csproj" />
     <ProjectReference Include="..\Celebpretty.Infrastructure.Mongo\Celebpretty.Infrastructure.Mongo.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\V1\" />
   </ItemGroup>
 
 </Project>

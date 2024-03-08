@@ -22,9 +22,8 @@ public class ProblemDetailsExceptionFilter : IExceptionFilter
 
         var problemDetails = _problemDetailsFactory.CreateProblemDetails(context.HttpContext, 500, "Internal error",
             detail: "");
-        problemDetails.Extensions["traceId"] = Activity.Current?.Id ?? context?.HttpContext.TraceIdentifier; ;
-        context.Result =
-            new ObjectResult(problemDetails);
+
+        context.Result = new ObjectResult(problemDetails);
         context.ExceptionHandled = true;
     }
 }
