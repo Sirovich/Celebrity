@@ -1,0 +1,13 @@
+services:
+  dotnetapp:
+    build: 
+      context: .
+      dockerfile: /build/dockerfile
+    image: my-project-image
+    ports:
+      - "5055:5055"
+
+  mongo:
+    image: mongo
+    ports:
+      - "28017:27017"

@@ -13,7 +13,6 @@ public class Scraper : IScraper
 {
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private readonly IMemoryCache _memoryCache;
     private const string baseUrl = "https://www.imdb.com";
 
     public Scraper(IMapper mapper, ILogger<Scraper> logger)

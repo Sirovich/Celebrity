@@ -19,13 +19,11 @@ public class CelebritiesController : ControllerBase
 {
     private readonly ICelebrityService _celebrityService;
     private readonly IMapper _mapper;
-    private readonly IScraper _scraper;
 
-    public CelebritiesController(ICelebrityService celebrityService, IMapper mapper, IScraper scraper)
+    public CelebritiesController(ICelebrityService celebrityService, IMapper mapper)
     {
         _celebrityService = celebrityService;
         _mapper = mapper;
-        _scraper = scraper;
     }
 
     [HttpGet]
