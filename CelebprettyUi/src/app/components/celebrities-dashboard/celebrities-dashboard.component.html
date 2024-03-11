@@ -1,0 +1,8 @@
+<div class="tw-mb-4">
+    <button type="button" (click)="reset()" class="tw-bg-orange-400">RESET</button>
+</div>
+<div class="tw-flex tw-flex-row tw-gap-4 tw-w-full tw-flex-wrap">
+    <div *ngFor="let celebrity of celebrities; index as i">
+        <app-celebrity-card [celebrity]="celebrity" (deleteEvent)="onDeleteItem(i)"></app-celebrity-card>
+    </div>
+</div>

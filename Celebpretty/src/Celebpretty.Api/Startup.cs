@@ -5,6 +5,7 @@ using Celebpretty.Api.Extensions;
 using Celebpretty.Api.Filters;
 using Celebpretty.Application.Main.Extensions;
 using Celebpretty.Infrastructure.Mongo.Configuration;
+using Celebpretty.Infrastructure.Scraper.Configuration;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Internal;
@@ -15,7 +16,6 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -90,6 +90,7 @@ public class Startup
             ValidatorOptions.Global.PropertyNameResolver = CamelCaseNameResolver;
         }
         );
+        services.AddMemoryCache();
         services.AddValidatorsFromAssemblyContaining<Startup>();
         services.AddFluentValidationRulesToSwagger();
         services.AddAutoMapper(configurationExpression => configurationExpression.AddProfile(new Models.MappingProfile()));
@@ -116,6 +117,7 @@ public class Startup
         services.AddAsyncInitializer<DataAsyncInitializer>();
         services.AddMongoPersistence(AppSettings.Mongo);
         services.AddIdGenerator();
+        services.AddScraper();
         services.AddApplicationMain();
     }
 
@@ -148,7 +150,12 @@ public class Startup
         app.UseRewriter(option);
 
         app.UseSerilogRequestLogging();
-        app.UseCors();
+        app.UseCors(builder =>
+        {
+            builder.AllowAnyHeader();
+            builder.AllowAnyOrigin();
+            builder.AllowAnyMethod();
+        });
         app.UseRouting();
         app.UseHttpMetrics();
         app.UseAuthentication();

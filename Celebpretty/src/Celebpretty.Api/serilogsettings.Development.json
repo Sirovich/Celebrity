@@ -6,7 +6,7 @@
       "Serilog.Formatting.Compact"
     ],
     "MinimumLevel": {
-      "Default": "Information",
+      "Default": "Debug",
       "Override": {
         "Microsoft": "Warning",
         "System": "Warning"

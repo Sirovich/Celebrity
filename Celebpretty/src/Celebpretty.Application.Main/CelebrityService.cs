@@ -2,6 +2,8 @@
 using Celebpretty.Application.Main.Models;
 using Celebpretty.Application.Main.Models.Error;
 using Celebpretty.Application.Persistence;
+using Microsoft.Extensions.Caching.Memory;
+using System.Security.AccessControl;
 
 namespace Celebpretty.Application.Main;
 
@@ -10,12 +12,17 @@ public class CelebrityService : ICelebrityService
     private readonly ICelebrityRepository _repository;
     private readonly IMapper _mapper;
     private readonly IIdGenerator _idGenerator;
+    private readonly IMemoryCache _memoryCache;
+    private readonly IScraper _scraper;
+    private const string cacheKey = "celebrities";
 
-    public CelebrityService(ICelebrityRepository repository, IMapper mapper, IIdGenerator idGenerator)
+    public CelebrityService(ICelebrityRepository repository, IMapper mapper, IIdGenerator idGenerator, IMemoryCache memoryCache, IScraper scraper)
     {
         _repository = repository;
         _mapper = mapper;
         _idGenerator = idGenerator;
+        _memoryCache = memoryCache;
+        _scraper = scraper;
     }
 
     public async Task<CreateCelebrityRes> CreateCelebrity(Celebrity celebrity, CancellationToken cancellationToken)
@@ -47,7 +54,36 @@ public class CelebrityService : ICelebrityService
 
     public async Task<IEnumerable<Celebrity>> GetCelebrities(CancellationToken cancellationToken)
     {
+        var cache = _memoryCache.Get(cacheKey);
+        if(cache == null)
+        {
+            await ResetCelebrities(cancellationToken);
+        }
+
         var result = await _repository.GetCelebrities(cancellationToken);
         return _mapper.Map<IEnumerable<Celebrity>>(result);
+    }
+
+    public async Task DeleteCelebrity(int id, CancellationToken cancellationToken)
+    {
+        await _repository.DeleteCelebrity(id, cancellationToken);
+    }
+
+    public async Task<IEnumerable<Celebrity>> ResetCelebrities(CancellationToken cancellationToken)
+    {
+        await _repository.ClearCelebrities(cancellationToken);
+        var celebrities = await _memoryCache.GetOrCreateAsync(cacheKey, async (entry) =>
+        {
+            return await _scraper.ScrapCelebrities(cancellationToken);
+        });
+
+        foreach(var celebrity in celebrities)
+        {
+            celebrity.Id = await _idGenerator.GenerateCelebrityId(cancellationToken);
+        }
+
+        var dbCelebrities = await _repository.CreateCelebrities(celebrities, cancellationToken);
+
+        return _mapper.Map<IEnumerable<Celebrity>>(dbCelebrities);
     }
 }

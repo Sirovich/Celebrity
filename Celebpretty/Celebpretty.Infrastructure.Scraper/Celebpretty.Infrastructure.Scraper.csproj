@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.59" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\Celebpretty.Application.Persistence\Celebpretty.Application.Persistence.csproj" />
+    <ProjectReference Include="..\src\Celebpretty.Core\Celebpretty.Core.csproj" />
+    <ProjectReference Include="..\src\Celebpretty.Infrastructure.Common\Celebpretty.Infrastructure.Common.csproj" />
+  </ItemGroup>
+
+</Project>

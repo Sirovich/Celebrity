@@ -3,7 +3,6 @@ using Celebpretty.Application.Persistence;
 using Celebpretty.Infrastructure.Common;
 using Celebpretty.Infrastructure.Mongo.Models;
 using MongoDB.Driver;
-using System.Reflection;
 
 namespace Celebpretty.Infrastructure.Mongo.Repositories;
 
@@ -27,7 +26,6 @@ public class CelebrityRepository : ICelebrityRepository, IDataInitializer
     public async Task<Core.Domain.Celebrity> CreateCelebrity(Core.Domain.Celebrity celebrity, CancellationToken cancellationToken)
     {
         var dbCelebrity = _mapper.Map<Celebrity>(celebrity);
-        dbCelebrity.Deleted = false;
         await _celebrityCollection.InsertOneAsync(dbCelebrity, cancellationToken: cancellationToken);
 
         return _mapper.Map<Core.Domain.Celebrity>(dbCelebrity);
@@ -50,9 +48,9 @@ public class CelebrityRepository : ICelebrityRepository, IDataInitializer
 
     public async Task<IEnumerable<Core.Domain.Celebrity>> GetCelebrities(CancellationToken cancellationToken)
     {
-        var celebrities = await _celebrityCollection.FindAsync(
+        var celebrities = await _celebrityCollection.FindSync(
             filter: Builders<Celebrity>.Filter.Ne(x => x.Deleted, true),
-            cancellationToken: cancellationToken);
+            cancellationToken: cancellationToken).ToListAsync();
 
         return _mapper.Map<IEnumerable<Core.Domain.Celebrity>>(celebrities);
     }
@@ -66,5 +64,27 @@ public class CelebrityRepository : ICelebrityRepository, IDataInitializer
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
         return result is null ? null : _mapper.Map<Core.Domain.Celebrity>(result);
+    }
+
+    public async Task DeleteCelebrity(int id, CancellationToken cancellationToken)
+    {
+        await _celebrityCollection.DeleteOneAsync(
+            filter: Builders<Celebrity>.Filter.Eq(x => x.Id, id),
+            cancellationToken: cancellationToken);
+    }
+
+    public async Task ClearCelebrities(CancellationToken cancellationToken)
+    {
+        await _celebrityCollection.DeleteManyAsync(
+            _ => true,
+            cancellationToken: cancellationToken);
+    }
+
+    public async Task<IEnumerable<Core.Domain.Celebrity>> CreateCelebrities(IEnumerable<Core.Domain.Celebrity> celebrities, CancellationToken cancellationToken)
+    {
+        var dbCelebrities = _mapper.Map<IEnumerable<Celebrity>>(celebrities);
+        await _celebrityCollection.InsertManyAsync(dbCelebrities, cancellationToken: cancellationToken);
+
+        return _mapper.Map<IEnumerable<Core.Domain.Celebrity>>(dbCelebrities);
     }
 }
