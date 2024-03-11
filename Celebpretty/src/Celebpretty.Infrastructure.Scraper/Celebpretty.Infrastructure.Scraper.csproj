@@ -14,9 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Celebpretty.Application.Persistence\Celebpretty.Application.Persistence.csproj" />
-    <ProjectReference Include="..\src\Celebpretty.Core\Celebpretty.Core.csproj" />
-    <ProjectReference Include="..\src\Celebpretty.Infrastructure.Common\Celebpretty.Infrastructure.Common.csproj" />
+    <ProjectReference Include="..\Celebpretty.Application.Persistence\Celebpretty.Application.Persistence.csproj" />
+    <ProjectReference Include="..\Celebpretty.Core\Celebpretty.Core.csproj" />
+    <ProjectReference Include="..\Celebpretty.Infrastructure.Common\Celebpretty.Infrastructure.Common.csproj" />
   </ItemGroup>
 
 </Project>

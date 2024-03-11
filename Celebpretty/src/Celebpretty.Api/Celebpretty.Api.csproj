@@ -37,11 +37,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Celebpretty.Infrastructure.Scraper\Celebpretty.Infrastructure.Scraper.csproj" />
     <ProjectReference Include="..\Celebpreety.Infrastructure.IdGenerator\Celebpreety.Infrastructure.IdGenerator.csproj" />
     <ProjectReference Include="..\Celebpretty.Application.Main\Celebpretty.Application.Main.csproj" />
     <ProjectReference Include="..\Celebpretty.Core\Celebpretty.Core.csproj" />
     <ProjectReference Include="..\Celebpretty.Infrastructure.Mongo\Celebpretty.Infrastructure.Mongo.csproj" />
+    <ProjectReference Include="..\Celebpretty.Infrastructure.Scraper\Celebpretty.Infrastructure.Scraper.csproj" />
   </ItemGroup>
 
 </Project>
