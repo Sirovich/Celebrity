@@ -9,4 +9,6 @@ CelebprettyApp
 ## Running app
 Run `docker-compose up` command
 
+![ui](ui.png)
+
 For project spent ~6 hours
